@@ -33,8 +33,9 @@ function App() {
     <div className="text-center h-100 bg-light">
       <Hero />
       <button
+        type="button"
         onClick={() => setShowCharts(!showCharts)}
-        style={{ margin: "10px" }}
+        className="btn btn-primary"
       >
         {showCharts ? "Show Original Data" : "Show Charts"}
       </button>
