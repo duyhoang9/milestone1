@@ -4,6 +4,7 @@ import Charts from "./Components/Charts/Charts.js";
 import Data from "./Data.js";
 import Hero from "./Components/Hero/Hero.js";
 import Tables from "./Components/Tables/Tables.js";
+import FileUpload from "./Components/FileUpload.js";
 
 function App() {
   const reversedData = Data.slice().reverse();
@@ -29,9 +30,31 @@ function App() {
     </section>
   );
 
+  const handleFileUpload = async (file) => {
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const response = await fetch("processFile", {
+        method: "POST",
+        body: formData,
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to process file");
+      }
+
+      const result = await response.json();
+      console.log("File processed successfully: ", result);
+    } catch (error) {
+      console.log("Error processing file: ", error.message);
+    }
+  };
+
   return (
     <div className="text-center h-100 bg-light">
       <Hero />
+      <FileUpload onFileUpload={handleFileUpload} />
       <button
         type="button"
         onClick={() => setShowCharts(!showCharts)}

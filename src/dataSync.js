@@ -24,23 +24,23 @@ const writeFile = async (filePath, data) => {
 };
 
 const updateArray = async () => {
-  // Read the content of the text file
+  // read the content of the text file
   const fileContent = await readFile("weather_log.txt");
 
-  // Split the content into lines
+  // split the content into lines
   const lines = fileContent.split("\n");
 
-  // Process each line and append to the existing array
+  // process each line and append to the existing array
   lines.forEach((line) => {
     const [wdate, wtime, wtemp, whumid, wpressure] = line.split(/\s+/);
 
-    // Check if data with the same wdate already exists in the array
+    // check if data with the same wdate already exists in the array
     const existingDataIndex = Data.findIndex(
       (item) => item.wdate === `${wdate} ${wtime || ""}`
     );
 
     if (existingDataIndex === -1) {
-      // Data with the same wdate doesn't exist, so add it to the array
+      // data with the same wdate doesn't exist, so add it to the array
       Data.push({
         wdate: `${wdate} ${wtime || ""}`, // Combine date and time, handle empty time
         wtemp,
@@ -48,21 +48,21 @@ const updateArray = async () => {
         wpressure,
       });
     } else {
-      // Data with the same wdate already exists, you can choose to update or skip it
+      // data with the same wdate already exists, you can choose to update or skip it
       console.log(
         `Data with wdate ${wdate} ${wtime || ""} already exists. Skipping...`
       );
     }
   });
 
-  // Convert the array to a string
+  // convert the array to a string
   const updatedDataString = `const Data = ${JSON.stringify(Data, null, 2)};\n`;
 
-  // Add a custom line to the end of the string
+  // add a custom line to the end of the string
   const customLine = "// This is a custom line added to the end of the file.";
   const finalUpdatedDataString = `${updatedDataString}\n${"export default Data;"}\n`;
 
-  // Write the updated array back to the file
+  // write the updated array back to the file
   await writeFile("Data.js", finalUpdatedDataString);
 };
 
