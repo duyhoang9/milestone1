@@ -22,37 +22,37 @@ function App() {
     );
   });
 
-  const [showCharts, setShowCharts] = useState(false);
+  // const [showCharts, setShowCharts] = useState(false);
 
-  const renderOriginalData = () => (
-    <section
-      id="weather-section-container"
-      className=" py-3 d-flex flex-row flex-wrap justify-content-center align-items-center gap-5"
-    >
-      {weather}
-    </section>
-  );
+  // const renderOriginalData = () => (
+  //   <section
+  //     id="weather-section-container"
+  //     className=" py-3 d-flex flex-row flex-wrap justify-content-center align-items-center gap-5"
+  //   >
+  //     {weather}
+  //   </section>
+  // );
 
-  const handleFileUpload = async (file) => {
-    try {
-      const formData = new FormData();
-      formData.append("file", file);
+  // const handleFileUpload = async (file) => {
+  //   try {
+  //     const formData = new FormData();
+  //     formData.append("file", file);
 
-      const response = await fetch("processFile", {
-        method: "POST",
-        body: formData,
-      });
+  //     const response = await fetch("processFile", {
+  //       method: "POST",
+  //       body: formData,
+  //     });
 
-      if (!response.ok) {
-        throw new Error("Failed to process file");
-      }
+  //     if (!response.ok) {
+  //       throw new Error("Failed to process file");
+  //     }
 
-      const result = await response.json();
-      console.log("File processed successfully: ", result);
-    } catch (error) {
-      console.log("Error processing file: ", error.message);
-    }
-  };
+  //     const result = await response.json();
+  //     console.log("File processed successfully: ", result);
+  //   } catch (error) {
+  //     console.log("Error processing file: ", error.message);
+  //   }
+  // };
 
   return (
     // multi page test
@@ -76,35 +76,6 @@ function App() {
             }
           />
         </Routes>
-        {/* <div className="bg-light vh-100">
-        <nav className="navbar navbar-expand-lg bg-light">
-          <Link className="nav-item" to="/">
-            Home
-          </Link>
-          <Link to="/chart" activeStyle>
-            Chart View
-          </Link>{" "}
-          <Link to="/table" activeStyle>
-            Table View
-          </Link>
-        </nav>
-        <Routes>
-          <Route exact path="/" element={<Hero />} />
-          <Route exact path="/chart" element={<Charts data={Data} />} />
-          <Route
-            exact
-            path="/table"
-            element={
-              <section
-                id="weather-section-container"
-                className=" py-3 d-flex flex-row flex-wrap justify-content-center align-items-center gap-5"
-              >
-                {weather}
-              </section>
-            }
-          />
-        </Routes>
-      </div> */}
       </Router>
     </div>
 

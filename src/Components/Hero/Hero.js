@@ -2,18 +2,25 @@ import React, { useState } from "react";
 import "./Hero.css";
 import FileUpload from "../FileUpload.js";
 
-const Hero = ({ onFileUpload }) => {
-  const [selectedFile, setSelectedFile] = useState(null);
+const Hero = () => {
+  const handleFileUpload = async (file) => {
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
 
-  const handleFileChange = (event) => {
-    setSelectedFile(event.target.files[0]);
-  };
+      const response = await fetch("http://localhost:3000/processFile", {
+        method: "POST",
+        body: formData,
+      });
 
-  const handleUpload = () => {
-    if (selectedFile) {
-      onFileUpload(selectedFile);
-    } else {
-      alert("Please select a file");
+      if (!response.ok) {
+        throw new Error("Failed to process file.");
+      }
+
+      const result = await response.json();
+      console.log("File processed successfully: ", result);
+    } catch {
+      console.log("Error processing file: ", error.message);
     }
   };
   return (
@@ -23,32 +30,8 @@ const Hero = ({ onFileUpload }) => {
           Raspberry Pi Weather Information
         </h1>
       </div>
-      <div className="py-5 text-center">
-        <h3>Upload Your Own Data (weather_log.txt)</h3>
-        <div
-          id="input-wrapper"
-          className="py-2 text-center d-flex flex-row justify-content-center"
-        >
-          <input
-            type="file"
-            onChange={handleFileChange}
-            className="form-control w-25 text-center"
-            id="formFile"
-            name="file"
-          />
-        </div>
-        <div
-          id="btn-wrapper"
-          className="py-2 text-center d-flex flex-row justify-content-center"
-        >
-          <button
-            type="button"
-            onClick={handleUpload}
-            className="btn btn-primary"
-          >
-            Upload Data
-          </button>
-        </div>
+      <div className="text-center">
+        <FileUpload onFileUpload={handleFileUpload} />
       </div>
     </div>
   );

@@ -1,30 +1,21 @@
-import express from "express";
-import multer from "multer";
-const { exec } = require("child_process");
+const express = require("express");
+const multer = require("multer"); // For handling file uploads
+const upload = multer(); // Create a multer instance
 
 const app = express();
-const upload = multer({ dest: "uploads/" });
+const port = 3000;
 
-app.get("/", (req, res) => {
-  res.send("Hello World");
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Handle file upload
+app.post("/processFile", upload.single("file"), (req, res) => {
+  // Access the uploaded file using req.file
+  console.log("File uploaded:", req.file);
+  // Your file processing logic here
+  res.json({ message: "File processed successfully" });
 });
-
-app.post("/api/upload", upload.single("file"), (req, res) => {
-  const uploadedFilePath = req.file.path;
-
-  exec(`node dataSync.js`, (error, stdout, stderr) => {
-    if (error) {
-      console.log("Error processing file:", error);
-      return res.status(500).send("Error processing file");
-    }
-
-    console.log("File processes successfully:", stdout);
-    res.send("File processes successfully");
-  });
-});
-
-const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
-  console.log(`Listening on port`, port);
+  console.log(`Server is running at http://localhost:${port}`);
 });
