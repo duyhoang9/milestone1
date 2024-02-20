@@ -20,7 +20,7 @@ const Hero = () => {
       const result = await response.json();
       console.log("File processed successfully: ", result);
     } catch {
-      console.log("Error processing file: ", error.message);
+      console.log("Error processing file: ", Error.message);
     }
   };
   return (
