@@ -5,6 +5,9 @@ import Data from "./Data.js";
 import Hero from "./Components/Hero/Hero.js";
 import Tables from "./Components/Tables/Tables.js";
 import FileUpload from "./Components/FileUpload.js";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Navbar from "./Components/Navbar.js";
+import { Link } from "react-router-dom";
 
 function App() {
   const reversedData = Data.slice().reverse();
@@ -52,27 +55,81 @@ function App() {
   };
 
   return (
-    <div className="text-center h-100 bg-light">
-      <Hero />
-      <FileUpload onFileUpload={handleFileUpload} />
-      <button
-        type="button"
-        onClick={() => setShowCharts(!showCharts)}
-        className="btn btn-primary"
-      >
-        {showCharts ? "Show Original Data" : "Show Charts"}
-      </button>
-      {showCharts ? (
-        <section
-          id="weather-section-container"
-          className="py-3 d-flex flex-row flex-wrap justify-content-center align-items-center gap-5"
-        >
-          <Charts data={Data} />
-        </section>
-      ) : (
-        renderOriginalData()
-      )}
+    // multi page test
+    <div className="bg-light vh-100">
+      <Router>
+        <div className="px-5">
+          <Navbar />
+        </div>
+        <Routes>
+          <Route path="/" element={<Hero />} />
+          <Route path="/chart" element={<Charts data={Data} />} />
+          <Route
+            path="/table"
+            element={
+              <section
+                id="weather-section-container"
+                className=" py-3 d-flex flex-row flex-wrap justify-content-center align-items-center gap-5"
+              >
+                {weather}
+              </section>
+            }
+          />
+        </Routes>
+        {/* <div className="bg-light vh-100">
+        <nav className="navbar navbar-expand-lg bg-light">
+          <Link className="nav-item" to="/">
+            Home
+          </Link>
+          <Link to="/chart" activeStyle>
+            Chart View
+          </Link>{" "}
+          <Link to="/table" activeStyle>
+            Table View
+          </Link>
+        </nav>
+        <Routes>
+          <Route exact path="/" element={<Hero />} />
+          <Route exact path="/chart" element={<Charts data={Data} />} />
+          <Route
+            exact
+            path="/table"
+            element={
+              <section
+                id="weather-section-container"
+                className=" py-3 d-flex flex-row flex-wrap justify-content-center align-items-center gap-5"
+              >
+                {weather}
+              </section>
+            }
+          />
+        </Routes>
+      </div> */}
+      </Router>
     </div>
+
+    // // old structure
+    // <div className="text-center h-100 bg-light">
+    //   <Hero />
+    //   <FileUpload onFileUpload={handleFileUpload} />
+    //   <button
+    //     type="button"
+    //     onClick={() => setShowCharts(!showCharts)}
+    //     className="btn btn-primary"
+    //   >
+    //     {showCharts ? "Show Original Data" : "Show Charts"}
+    //   </button>
+    //   {showCharts ? (
+    //     <section
+    //       id="weather-section-container"
+    //       className="py-3 d-flex flex-row flex-wrap justify-content-center align-items-center gap-5"
+    //     >
+    //       <Charts data={Data} />
+    //     </section>
+    //   ) : (
+    //     renderOriginalData()
+    //   )}
+    // </div>
   );
 }
 
