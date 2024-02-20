@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import "./Hero.css";
+import FileUpload from "../FileUpload.js";
 
-const Hero = () => {
+const Hero = ({ onFileUpload }) => {
   const [selectedFile, setSelectedFile] = useState(null);
 
   const handleFileChange = (event) => {
