@@ -40,6 +40,13 @@ const Charts = ({ data }) => {
         },
       },
     },
+    layout: {
+      padding: {
+        left: 100,
+        right: 100,
+        bottom: 150,
+      },
+    },
     // Additional configuration options...
   };
 
