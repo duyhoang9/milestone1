@@ -14,19 +14,19 @@ const Navbar = () => {
     //     Table View
     //   </Link>
     // </nav>
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <Link className="navbar-brand" to="/">
+    <nav className="navbar navbar-expand-lg bg-primary text-light">
+      <Link className="navbar-brand text-light" to="/">
         Home
       </Link>
       <div className="navbar">
         <ul className="navbar-nav">
           <li className="nav-item">
-            <Link className="nav-link" to="/table">
+            <Link className="nav-link text-light" to="/table">
               Tables
             </Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to="/chart">
+            <Link className="nav-link text-light" to="/chart">
               Chart
             </Link>
           </li>

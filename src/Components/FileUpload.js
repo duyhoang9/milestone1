@@ -26,7 +26,7 @@ const FileUpload = ({ onFileUpload }) => {
         <input
           type="file"
           onChange={handleFileChange}
-          className="form-control w-25 text-center"
+          className="form-control w-25 text-center shadow-sm"
           id="formFile"
           name="file"
         />
@@ -38,7 +38,7 @@ const FileUpload = ({ onFileUpload }) => {
         <button
           type="button"
           onClick={handleUpload}
-          className="btn btn-primary"
+          className="btn btn-primary shadow-sm"
         >
           Upload Data
         </button>

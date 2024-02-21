@@ -58,8 +58,10 @@ function App() {
     // multi page test
     <div className="bg-light vh-100">
       <Router>
-        <div className="px-5">
-          <Navbar />
+        <div className="navbar navbar-expand-lg py-0">
+          <div className="container-fluid bg-primary shadow-sm">
+            <Navbar />
+          </div>
         </div>
         <Routes>
           <Route path="/" element={<Hero />} />
